@@ -1,27 +1,33 @@
-/* eslint-disable no-unused-vars */
 import { useDispatch } from 'react-redux';
 import { useRef } from 'react';
 import { addBook } from '../../redux/books/books';
+import { ID } from '../../utils/idGenerator';
 
 const CreateNewBook = () => {
   const dispatch = useDispatch();
   const titleInput = useRef(null);
   const authorInput = useRef(null);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    console.log(titleInput?.current?.value);
-    console.log(authorInput?.current?.value);
+  const submitBookToStore = () => {
+    const newBook = {
+      id: ID(),
+      title: titleInput?.current?.value,
+      author: authorInput?.current?.value,
+    };
+    dispatch(addBook(newBook));
   };
 
-  // const submitBookToStore = () => {
-  //   const newBook = {
-  //     id: 'id',
-  //     title: 'title',
-  //     author: 'author',
-  //   };
-  // };
+  const clearInputs = () => {
+    titleInput.current.value = '';
+    authorInput.current.value = '';
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    submitBookToStore();
+    clearInputs();
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <input ref={titleInput} type="text" name="title" placeholder="Book title" />
