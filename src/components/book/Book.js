@@ -13,6 +13,7 @@ const Book = (props) => {
         And my author is
         {author}
       </p>
+      <button type="button">Remove me</button>
     </div>
   );
 };
