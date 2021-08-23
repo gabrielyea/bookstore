@@ -1,15 +1,15 @@
+import { useSelector } from 'react-redux';
 import Book from '../book/Book';
 
 const BooksContainer = () => {
-  const bookList = [{ author: ' place holder 1', title: ' place holder 1' },
-    { author: ' place holder 2', title: ' place holder 2' },
-    { author: ' place holder 3', title: ' place holder 3' }];
+  const books = useSelector((state) => state.booksReducer);
+
   const createBooks = (booksCollection) => booksCollection.map((book) => (
     <Book
       key={Math.random()}
-      index={book.id}
+      id={book.id}
       author={book.author}
-      title={book.author}
+      title={book.title}
       description={book.description}
     />
   ));
@@ -17,7 +17,7 @@ const BooksContainer = () => {
   return (
     <section>
       <ul>
-        {createBooks(bookList)}
+        {createBooks(books)}
       </ul>
     </section>
   );
