@@ -7,7 +7,7 @@ export const bookSlice = createSlice(
     initialState: { value: [] },
     reducers: {
       add: (state) => {
-        state.value = [...state.value].concat(' new book');
+        state.value = [...state.value].concat('new book');
       },
       remove: (state) => {
         state.value = [...state.value].splice(0, 0);
