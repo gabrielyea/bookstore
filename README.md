@@ -4,7 +4,7 @@
 ![](https://img.shields.io/badge/SCSS-pink)
 
 # Bookstore.
-> Bookstore application
+> Bookstore application built with REACT, JAVASCRIPT, and SASS. It lets you add and remove books.
 
 ## Live Demo
 You can see my page live here: 
