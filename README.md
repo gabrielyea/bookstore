@@ -3,20 +3,14 @@
 ![](https://img.shields.io/badge/JavaScript-yellow)
 ![](https://img.shields.io/badge/SCSS-pink)
 
-# React Math magicians.
-> Math magicians is a simple calculator app that allows us to do 
-basic math operations.
-The application also connects to a Jokes API and diplays a random joke!
-
-<p align="center">
-  <img src="./src/pages/home/calculator-animation.png" width="50%" height="50%"/>
-</p>
+# Bookstore
+> 
 
 ## Screenshots
 ![img](./misc/screenshot.png)
 ## Live Demo
 You can see my page live here: 
-- [Check it out!](https://gabrielyea.github.io/math-magicians/)
+- [Check it out!](https://gabrielyea.github.io/bookstore/)
 
 
 ## Built With 🔨
