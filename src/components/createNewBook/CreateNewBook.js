@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useRef } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { postBookToApi } from '../../redux/books/books';
-import { ID } from '../../utils/idGenerator';
 
 const CreateNewBook = () => {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ const CreateNewBook = () => {
 
   const submitBookToStore = () => {
     const newBook = {
-      item_id: ID(),
+      item_id: uuidv4(),
       title: titleInput?.current?.value,
       category: categoryInput?.current?.value,
     };
