@@ -1,8 +1,16 @@
-import { useSelector } from 'react-redux';
+/* eslint-disable no-unused-vars */
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { asyncApiCall } from '../../redux/books/books';
 import Book from '../book/Book';
 
 const BooksContainer = () => {
   const books = useSelector((state) => state.booksReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(asyncApiCall());
+  }, []);
 
   const createBooks = (booksCollection) => booksCollection.map((book) => (
     <Book
@@ -17,7 +25,7 @@ const BooksContainer = () => {
   return (
     <section>
       <ul>
-        {createBooks(books)}
+        {createBooks([books].flat())}
       </ul>
     </section>
   );
