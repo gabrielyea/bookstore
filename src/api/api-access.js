@@ -1,11 +1,17 @@
+/* eslint-disable quote-props */
+/* eslint-disable quotes */
+/* eslint-disable camelcase */
 class ApiAccess {
   requestApi = (url, params = {}, method = 'GET') => {
     let newUrl = url;
+    const headersList = {
+      Accept: '*/*',
+      'Content-Type': 'application/json',
+    };
+
     const options = {
       method,
-      headers: {
-        Accept: '*/*',
-      },
+      headersList,
     };
     if (method === 'GET') {
       newUrl += `?${(new URLSearchParams(params)).toString()}`;
@@ -27,13 +33,32 @@ class ApiAccess {
     return '';
   };
 
-  postApi = async (url, params, callback) => {
-    const response = await this.requestApi(url, params, 'POST');
-    if (callback !== undefined && response.ok) {
-      callback();
-    }
+  // eslint-disable-next-line no-unused-vars
+  // postApi = async (url, params, callback) => {
+  //   const response = await this.requestApi(url, params, 'POST');
+  //   if (callback !== undefined && response.ok) {
+  //     callback();
+  //   }
+  //   return response;
+  // };
+
+  postApi = async (item_id, category, title) => {
+    const headersList = {
+      "Accept": "*/*",
+      "Content-Type": "application/json",
+    };
+
+    const body = {
+      item_id, category, title,
+    };
+
+    const response = await fetch('https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/OMlwiHaSBLEL62sFo84R/books', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: headersList,
+    });
     return response;
-  };
+  }
 }
 
 const access = new ApiAccess();
