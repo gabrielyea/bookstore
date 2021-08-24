@@ -1,26 +1,26 @@
 /* eslint-disable react/prop-types */
 import { useDispatch } from 'react-redux';
 import React from 'react';
-import { removeBook } from '../../redux/books/books';
+import { deleteBookFromApi } from '../../redux/books/books';
 
 const Book = (props) => {
   const dispatch = useDispatch();
-  const { id, title, author } = props;
+  const { id, title, category } = props;
   const handleRemove = () => {
-    dispatch(removeBook(id));
+    dispatch(deleteBookFromApi({ id }));
   };
 
   return (
     <div>
       <p>
-        I am a book, my title is
+        I am a book, my title is:
         {' '}
         {title}
       </p>
       <p>
-        And my author is
+        And my category is:
         {' '}
-        {author}
+        {category}
       </p>
       <button onClick={handleRemove} type="button">Remove me</button>
     </div>
