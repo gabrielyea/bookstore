@@ -13,12 +13,12 @@ const Book = (props) => {
   return (
     <div>
       <p>
-        I am a book, my title is
+        I am a book, my title is:
         {' '}
         {title}
       </p>
       <p>
-        And my category is
+        And my category is:
         {' '}
         {category}
       </p>
