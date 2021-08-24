@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useDispatch } from 'react-redux';
 import React from 'react';
-import { removeBook } from '../../redux/books/books';
+import { deleteBookFromApi } from '../../redux/books/books';
 
 const Book = (props) => {
   const dispatch = useDispatch();
   const { id, title, category } = props;
   const handleRemove = () => {
-    dispatch(removeBook(id));
+    dispatch(deleteBookFromApi({ id }));
   };
 
   return (

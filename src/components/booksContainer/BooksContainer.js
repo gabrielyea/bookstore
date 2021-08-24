@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 /* eslint-disable no-unused-vars */
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,21 +8,18 @@ import Book from '../book/Book';
 const BooksContainer = () => {
   const books = useSelector((state) => state.booksReducer);
   const dispatch = useDispatch();
-  console.log(books);
 
   useEffect(() => {
     dispatch(getBooksFromApi());
   }, []);
 
   const createBooks = (booksCollection) => booksCollection.map((book) => {
-    console.log(book);
     return (
       <Book
-        key={Math.random()}
-        id={book.id}
-        author={book.author}
+        key={book.item_id}
+        id={book.item_id}
+        category={book.category}
         title={book.title}
-        description={book.description}
       />
     );
   });
@@ -29,7 +27,7 @@ const BooksContainer = () => {
   return (
     <section>
       <ul>
-        {createBooks([books].flat())}
+        {createBooks(books)}
       </ul>
     </section>
   );

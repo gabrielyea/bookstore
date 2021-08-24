@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable camelcase */
 import { access } from '../../api/api-access';
 import routes from '../../api/api-routes';
 
@@ -27,7 +27,7 @@ const reducer = (state = initialState, action) => {
       return [...state, action.payload];
 
     case REMOVE_BOOK:
-      return state.filter((book) => book.id !== action.payload);
+      return state.filter((book) => book.item_id !== action.payload);
 
     default:
       return state;
@@ -38,7 +38,13 @@ export const getBooksFromApi = () => async (dispatch) => {
   try {
     const response = await access.getApi(routes.MAIN);
     Object.entries(response).forEach((book) => {
-      dispatch(addBook((book[1][0])));
+      const { category, title } = book[1][0];
+      const newBook = {
+        item_id: book[0],
+        title,
+        category,
+      };
+      dispatch(addBook(newBook));
     });
   } catch (error) {
     dispatch(errorHandle(error));
@@ -47,12 +53,17 @@ export const getBooksFromApi = () => async (dispatch) => {
   return 'done';
 };
 
-// eslint-disable-next-line camelcase
 export const postBookToApi = ({ item_id, category, title }) => async (dispatch) => {
-  const response = await access.postApi(item_id, category, title);
+  const response = await access.postApi(routes.MAIN, { item_id, category, title });
   if (response.ok) {
-    console.log('ok');
     dispatch(addBook({ item_id, category, title }));
+  }
+};
+
+export const deleteBookFromApi = ({ id }) => async (dispatch) => {
+  const response = await access.deleteApi(routes.MAIN, { item_id: id });
+  if (response.ok) {
+    dispatch(removeBook(id));
   }
 };
 
