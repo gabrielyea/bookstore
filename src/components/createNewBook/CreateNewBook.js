@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { postBookToApi } from '../../redux/books/books';
+import { createBook } from '../../redux/books/bookSlice';
 
 const CreateNewBook = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const CreateNewBook = () => {
       title: titleInput?.current?.value,
       category: categoryInput?.current?.value,
     };
-    dispatch(postBookToApi(newBook));
+    dispatch(createBook(newBook));
   };
 
   const clearInputs = () => {
