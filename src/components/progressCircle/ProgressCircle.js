@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { React, useState, useEffect } from 'react';
+import styles from './progressCircleStyle.module.scss';
 
 const ProgressCircle = (props) => {
   const { percent } = props;
@@ -25,25 +26,31 @@ const ProgressCircle = (props) => {
     'L 0 0', // Line
   ].join(' ');
 
+  const style = {
+    fill: `rgb( 0 0 ${percent * 100 + 150} )`,
+  };
+
   useEffect(() => {
     setEnd(percent);
   }, [percent]);
 
-  const style = {
-    transform: 'rotate(-0.25turn) scale(0.25)',
-    fill: 'blue',
-  };
-
   return (
-    <div>
-      <svg
-        viewBox="-1 -1 2 2"
-        style={style}
-      >
-        <path
-          d={pathData}
-        />
-      </svg>
+    <div className={styles.mainContainer}>
+      <div className={styles.percentContainer}>
+        <svg
+          style={style}
+          className={styles.circlePercent}
+          viewBox="-1 -1 2 2"
+        >
+          <path
+            d={pathData}
+          />
+        </svg>
+        <div className={styles.textContainer}>
+          <p className={styles.number}>{`${percent * 100}%`}</p>
+          <p className={styles.text}>Completed</p>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,32 @@
+@use '../../styles/utils.scss' as *;
+
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 8em;
+
+  .percentContainer {
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    gap: 2em;
+
+    .circlePercent {
+      width: 90px;
+      transform: rotate(-0.25turn) scale(1);
+    }
+
+    .textContainer {
+      font-family: $second-font;
+      align-self: center;
+
+      .number {
+        font-size: 2rem;
+      }
+
+      .text {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
