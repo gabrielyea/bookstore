@@ -3,8 +3,8 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { getBooksFromApi } from '../../redux/books/books';
 import { fetchAllBooks } from '../../redux/books/bookSlice';
+import styles from './bookContainerStyle.module.scss';
 import Book from '../book/Book';
 
 const BooksContainer = () => {
@@ -13,11 +13,6 @@ const BooksContainer = () => {
 
   useEffect(() => {
     dispatch(fetchAllBooks());
-    // const getStatus = async () => {
-    //   const resultAction = await dispatch(fetchAllBooks());
-    //   const originalPromiseResult = unwrapResult(resultAction);
-    // };
-    // getStatus();
   }, []);
 
   const createBooks = (booksCollection) => booksCollection.map((book) => {
@@ -32,8 +27,8 @@ const BooksContainer = () => {
   });
 
   return (
-    <section>
-      <ul>
+    <section className={styles.mainContainer}>
+      <ul className={styles.listContainer}>
         {createBooks(books.entities)}
       </ul>
     </section>
