@@ -59,8 +59,10 @@ const ProgressCircle = (props) => {
     'L 0 0',
   ].join(' ');
 
+  const colors = ['#FF008C', '#D309E1', '#9C1AFF', '#7700FF', '#4400FF'];
+
   const style = {
-    fill: `rgb( 0 0 ${percent * 100 + 150} )`,
+    color: `rgb( 0 0 ${percent * 100 + 150} )`,
   };
 
   useEffect(() => {
@@ -95,14 +97,13 @@ const ProgressCircle = (props) => {
             stroke="grey"
             fill="transparent"
             strokeWidth={sW}
-            style={{ strokeDashoffset }}
             r={normalizedRadius}
             cx={radius}
             cy={radius}
           />
           <circle
             className={styles.percentCircle}
-            stroke="blue"
+            stroke={`rgb( 0 ${percent * 100 + 50} ${percent * 100 + 150} )`}
             fill="transparent"
             strokeWidth={sW}
             strokeDasharray={`${circumference} ${circumference}`}
