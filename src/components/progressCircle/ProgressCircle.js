@@ -1,7 +1,33 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+import { motion } from 'framer-motion';
 import { React, useState, useEffect } from 'react';
 import styles from './progressCircleStyle.module.scss';
+
+const containerA = {
+  initial: {},
+  animate: {
+    transition: {
+      staggerChildren: 0.5,
+      delayChildren: 1.5,
+    },
+  },
+};
+
+const childVariantA = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      damping: 10,
+      mass: 0.75,
+      stiffness: 100,
+    },
+  },
+};
 
 const ProgressCircle = (props) => {
   const { percent } = props;
@@ -35,9 +61,15 @@ const ProgressCircle = (props) => {
   }, [percent]);
 
   return (
-    <div className={styles.mainContainer}>
-      <div className={styles.percentContainer}>
-        <svg
+    <motion.div className={styles.mainContainer}>
+      <motion.div
+        className={styles.percentContainer}
+        variants={containerA}
+        initial="initial"
+        animate="animate"
+      >
+        <motion.svg
+          variants={childVariantA}
           style={style}
           className={styles.circlePercent}
           viewBox="-1 -1 2 2"
@@ -45,13 +77,16 @@ const ProgressCircle = (props) => {
           <path
             d={pathData}
           />
-        </svg>
-        <div className={styles.textContainer}>
+        </motion.svg>
+        <motion.div
+          className={styles.textContainer}
+          variants={childVariantA}
+        >
           <p className={styles.number}>{`${percent * 100}%`}</p>
           <p className={styles.text}>Completed</p>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 export default ProgressCircle;
