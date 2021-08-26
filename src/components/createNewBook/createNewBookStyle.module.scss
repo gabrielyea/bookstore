@@ -1,0 +1,44 @@
+@use '../../styles/utils.scss'as *;
+
+.mainContainer {
+  bottom: 0;
+  border-top: 1px solid rgba(202, 202, 202, 0.733);
+  margin: 6rem 6rem;
+  padding: 2rem 0;
+
+  h1 {
+    font-family: $second-font;
+    color: #8888;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 2rem;
+
+    .title {
+      height: 3rem;
+      border-radius: 4px;
+      border: solid 1px #e8e8e8;
+      background-color: #fff;
+    }
+
+    .category {
+      height: 3rem;
+      border-radius: 4px;
+      border: solid 1px #e8e8e8;
+      background-color: #fff;
+    }
+
+    .btn {
+      font-family: $main-font;
+      color: white;
+      height: 3rem;
+      background-color: #0290ff;
+      border-radius: 4px;
+      border: none;
+    }
+  }
+}
