@@ -10,7 +10,7 @@ export const fetchAllBooks = createAsyncThunk('books/fetchAllBooks', async () =>
   const books = Object.entries(response).map((book) => ({
     item_id: book[0],
     title: book[1][0].title,
-    atr: book[1][0].category,
+    category: book[1][0].category,
   }));
   return books;
 });

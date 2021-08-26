@@ -4,8 +4,8 @@ import CreateNewBook from '../../components/createNewBook/CreateNewBook';
 
 const Home = () => (
   <>
-    <CreateNewBook />
     <BooksContainer />
+    <CreateNewBook />
   </>
 );
 export default Home;
