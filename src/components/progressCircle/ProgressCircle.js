@@ -103,7 +103,7 @@ const ProgressCircle = (props) => {
           />
           <circle
             className={styles.percentCircle}
-            stroke={`rgb( 0 ${percent * 100 + 50} ${percent * 100 + 150} )`}
+            stroke={`rgb( ${(50 / percent)} ${percent * 150} ${percent * 500} )`}
             fill="transparent"
             strokeWidth={sW}
             strokeDasharray={`${circumference} ${circumference}`}
