@@ -48,8 +48,6 @@ const BooksContainer = () => {
     dispatch(fetchAllBooks());
   }, []);
 
-  console.log(books);
-
   const createBooks = (booksCollection) => booksCollection.map((book) => {
     return (
       <Book
@@ -69,7 +67,7 @@ const BooksContainer = () => {
     >
       {books
       && (
-      <motion.ul variants={container} initial="initial" animate="animate" whileHover="hover" className={styles.listContainer}>
+      <motion.ul variants={container} initial="initial" animate="animate" className={styles.listContainer}>
           {createBooks(books.entities)}
       </motion.ul>
       )}
