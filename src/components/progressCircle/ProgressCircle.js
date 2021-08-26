@@ -88,8 +88,9 @@ const ProgressCircle = (props) => {
         <motion.svg
           height={radius * 2}
           width={radius * 2}
+          variants={childVariantA}
         >
-          <motion.circle
+          <circle
             className={styles.percentCircle}
             stroke="grey"
             fill="transparent"
@@ -99,7 +100,7 @@ const ProgressCircle = (props) => {
             cx={radius}
             cy={radius}
           />
-          <motion.circle
+          <circle
             className={styles.percentCircle}
             stroke="blue"
             fill="transparent"
