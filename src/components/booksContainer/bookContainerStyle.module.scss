@@ -1,6 +1,12 @@
 .mainContainer {
+  margin: 0 6rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 600px;
+
   .listContainer {
-    margin: 2em;
+    display: flex;
+    flex-direction: column;
     list-style: none;
   }
 }

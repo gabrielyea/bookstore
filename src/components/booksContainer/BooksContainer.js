@@ -1,6 +1,6 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
 import { unwrapResult } from '@reduxjs/toolkit';
@@ -46,9 +46,14 @@ const childVariant = {
 const BooksContainer = () => {
   const selectorBooks = useSelector((state) => state.books.entities);
   const dispatch = useDispatch();
+  const mainContainer = useRef(null);
 
   useEffect(() => {
     dispatch(fetchAllBooks());
+    mainContainer.current.addEventListener('DOMNodeInserted', (event) => {
+      const { currentTarget: target } = event;
+      target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+    });
   }, []);
 
   const createBooks = (list) => list.map((book) => {
@@ -66,6 +71,7 @@ const BooksContainer = () => {
   return (
     <motion.section
       className={styles.mainContainer}
+      ref={mainContainer}
     >
       {selectorBooks
       && (
