@@ -59,8 +59,6 @@ const ProgressCircle = (props) => {
     'L 0 0',
   ].join(' ');
 
-  const colors = ['#FF008C', '#D309E1', '#9C1AFF', '#7700FF', '#4400FF'];
-
   const style = {
     color: `rgb( 0 0 ${percent * 100 + 150} )`,
   };
@@ -94,7 +92,7 @@ const ProgressCircle = (props) => {
         >
           <circle
             className={styles.percentCircle}
-            stroke="grey"
+            stroke="#eeeeee"
             fill="transparent"
             strokeWidth={sW}
             r={normalizedRadius}
