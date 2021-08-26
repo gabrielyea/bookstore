@@ -11,19 +11,11 @@ export const fetchAllBooks = createAsyncThunk('books/fetchAllBooks', async (thun
 });
 
 export const createBook = createAsyncThunk('books/createBook', async ({ item_id, category, title }) => {
-  const response = await access.postApi(routes.MAIN, { item_id, category, title });
-  if (response.ok) {
-    return { item_id, category, title };
-  }
-  return '';
+  await access.postApi(routes.MAIN, { item_id, category, title });
 });
 
 export const deleteBook = createAsyncThunk('books/deleteBook', async ({ id }) => {
-  const response = await access.deleteApi(routes.MAIN, { item_id: id });
-  if (response.ok) {
-    return id;
-  }
-  return '';
+  await access.deleteApi(routes.MAIN, { item_id: id });
 });
 
 export const bookSlice = createSlice({
@@ -32,7 +24,7 @@ export const bookSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllBooks.pending, (state, action) => {
+      .addCase(fetchAllBooks.pending, (state) => {
         state.loading = 'pending';
       })
       .addCase(fetchAllBooks.fulfilled, (state, action) => {
@@ -47,13 +39,23 @@ export const bookSlice = createSlice({
         });
         state.loading = 'idle';
       });
-    builder.addCase(createBook.fulfilled, (state, action) => {
-      state.entities = [...state.entities, action.payload];
-    });
-    builder.addCase(deleteBook.fulfilled, (state, action) => {
-      const filterArr = state.entities.filter((book) => book.item_id !== action.payload);
-      state.entities = filterArr;
-    });
+    builder
+      .addCase(createBook.fulfilled, (state, action) => {
+        state.loading = 'idle';
+        state.entities = [...state.entities, action.meta.arg];
+      })
+      .addCase(createBook.pending, (state) => {
+        state.loading = 'pending';
+      });
+    builder
+      .addCase(deleteBook.fulfilled, (state, action) => {
+        state.loading = 'idle';
+        const filterArr = state.entities.filter((book) => book.item_id !== action.meta.arg.id);
+        state.entities = filterArr;
+      })
+      .addCase(deleteBook.pending, (state) => {
+        state.loading = 'pending';
+      });
   },
 });
 export default bookSlice.reducer;

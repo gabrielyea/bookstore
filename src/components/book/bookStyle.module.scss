@@ -51,6 +51,14 @@
         background-color: transparent;
         border: none;
         padding: 0;
+
+        &:hover {
+          color: #00ca0a;
+        }
+
+        &:active {
+          color: #fcd601;
+        }
       }
     }
   }
@@ -95,6 +103,14 @@
       border-radius: 3px;
       border: none;
       margin-top: 2em;
+
+      &:hover {
+        background-color: #0064b1;
+      }
+
+      &:active {
+        background-color: #cf9903;
+      }
     }
   }
 }
