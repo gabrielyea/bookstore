@@ -5,9 +5,14 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { access } from '../../api/api-access';
 import routes from '../../api/api-routes';
 
-export const fetchAllBooks = createAsyncThunk('books/fetchAllBooks', async (thunkAPI) => {
+export const fetchAllBooks = createAsyncThunk('books/fetchAllBooks', async () => {
   const response = await access.getApi(routes.MAIN);
-  return response;
+  const books = Object.entries(response).map((book) => ({
+    item_id: book[0],
+    title: book[1][0].title,
+    atr: book[1][0].category,
+  }));
+  return books;
 });
 
 export const createBook = createAsyncThunk('books/createBook', async ({ item_id, category, title }) => {
@@ -28,15 +33,7 @@ export const bookSlice = createSlice({
         state.loading = 'pending';
       })
       .addCase(fetchAllBooks.fulfilled, (state, action) => {
-        Object.entries(action.payload).forEach((book) => {
-          const { category, title } = book[1][0];
-          const newBook = {
-            item_id: book[0],
-            title,
-            category,
-          };
-          state.entities = [...state.entities, newBook];
-        });
+        state.entities = [...action.payload];
         state.loading = 'idle';
       });
     builder

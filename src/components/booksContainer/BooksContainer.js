@@ -1,6 +1,6 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-unused-vars */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
 import { unwrapResult } from '@reduxjs/toolkit';
@@ -20,6 +20,9 @@ const container = {
       staggerChildren: 0.5,
       delayChildren: 1,
     },
+  },
+  exit: {
+    scale: 0,
   },
 };
 
@@ -41,14 +44,14 @@ const childVariant = {
 };
 
 const BooksContainer = () => {
-  const books = useSelector((state) => state.books);
+  const selectorBooks = useSelector((state) => state.books.entities);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchAllBooks());
   }, []);
 
-  const createBooks = (booksCollection) => booksCollection.map((book) => {
+  const createBooks = (list) => list.map((book) => {
     return (
       <Book
         key={book.item_id}
@@ -63,12 +66,11 @@ const BooksContainer = () => {
   return (
     <motion.section
       className={styles.mainContainer}
-      initial="show"
     >
-      {books
+      {selectorBooks
       && (
       <motion.ul variants={container} initial="initial" animate="animate" className={styles.listContainer}>
-          {createBooks(books.entities)}
+        {createBooks(selectorBooks)}
       </motion.ul>
       )}
     </motion.section>

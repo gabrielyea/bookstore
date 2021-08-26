@@ -76,16 +76,6 @@ const ProgressCircle = (props) => {
         animate="animate"
       >
         <motion.svg
-          variants={childVariantA}
-          style={style}
-          className={styles.circlePercent}
-          viewBox="-1 -1 2 2"
-        >
-          {/* <path
-            d={pathData}
-          /> */}
-        </motion.svg>
-        <motion.svg
           height={radius * 2}
           width={radius * 2}
           variants={childVariantA}

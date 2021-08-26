@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useDispatch } from 'react-redux';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion, useCycle } from 'framer-motion';
 import { React, useState } from 'react';
 import { deleteBook } from '../../redux/books/bookSlice';
 import ProgressCircle from '../progressCircle/ProgressCircle';
@@ -18,7 +18,7 @@ const containerA = {
     },
   },
   exit: {
-    scale: 0,
+    x: 200,
     opacity: 0,
   },
 };
@@ -70,10 +70,12 @@ const childVariantB = {
 const Book = (props) => {
   const dispatch = useDispatch();
   const [percent, setPercent] = useState(0);
+  const [remove, toggleRemove] = useCycle(true, false);
   const {
     id, title, category, variants,
   } = props;
   const handleRemove = () => {
+    toggleRemove();
     dispatch(deleteBook({ id }));
   };
 
@@ -82,81 +84,80 @@ const Book = (props) => {
   };
 
   return (
-    <motion.li variants={variants}>
-      <input onChange={changeHandler} type="text" name="value" placeholder="test percent" />
-      <motion.div
-        className={styles.mainContainer}
-        variants={containerA}
-        initial="initial"
-        animate="animate"
-        exit="exit"
+    <AnimatePresence>
+      <motion.li
+        variants={variants}
       >
+        <input onChange={changeHandler} type="text" name="value" placeholder="test percent" />
         <motion.div
-          variants={childVariantA}
-          className={styles.dataContainer}
+          className={styles.mainContainer}
+          variants={containerA}
+          initial="initial"
+          animate={remove ? 'animate' : 'exit'}
         >
-          <p className={styles.category}>
-            {category}
-          </p>
-          <p className={styles.title}>
-            {title}
-          </p>
-          <p className={styles.author}>
-            author
-          </p>
           <motion.div
-            variants={containerB}
-            className={styles.optionsContainer}
+            variants={childVariantA}
+            className={styles.dataContainer}
           >
+            <p className={styles.category}>
+              {category}
+            </p>
+            <p className={styles.title}>
+              {title}
+            </p>
+            <p className={styles.author}>
+              author
+            </p>
             <motion.div
-              variants={childVariantB}
+              variants={containerB}
+              className={styles.optionsContainer}
             >
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className={styles.btn}
-                type="button"
+              <motion.div
+                variants={childVariantB}
               >
-                Comments
-              </motion.button>
-            </motion.div>
-            <motion.div
-              variants={childVariantB}
-            >
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className={styles.btn}
-                onClick={handleRemove}
-                type="motion.button"
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className={styles.btn}
+                  type="button"
+                >
+                  Comments
+                </motion.button>
+              </motion.div>
+              <motion.div
+                variants={childVariantB}
               >
-                Remove
-              </motion.button>
-            </motion.div>
-            <motion.div
-              variants={childVariantB}
-            >
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className={styles.btn}
-                type="button"
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className={styles.btn}
+                  onClick={handleRemove}
+                  type="motion.button"
+                >
+                  Remove
+                </motion.button>
+              </motion.div>
+              <motion.div
+                variants={childVariantB}
               >
-                Edit
-              </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className={styles.btn}
+                  type="button"
+                >
+                  Edit
+                </motion.button>
+              </motion.div>
             </motion.div>
           </motion.div>
+          <ProgressCircle
+            percent={percent}
+          />
+          <Chapter />
         </motion.div>
-        <div className={styles.progressContainer}>
-          <div className={styles.circlePercent}>
-            <ProgressCircle
-              percent={percent}
-            />
-          </div>
-        </div>
-        <Chapter />
-      </motion.div>
-    </motion.li>
+      </motion.li>
+    </AnimatePresence>
   );
 };
 export default Book;
