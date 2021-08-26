@@ -1,5 +1,6 @@
 import React from 'react';
 import MenuItem from './menuItem/MenuItem';
+import styles from './navBarStyle.module.scss';
 
 const NavBar = () => {
   const links = [
@@ -25,11 +26,13 @@ const NavBar = () => {
   ));
 
   return (
-    <nav className="nav">
-      <div className="logo"><h1>Bookstore</h1></div>
-      <ul>
-        {createLinks(links)}
-      </ul>
+    <nav className={styles.navBar}>
+      <div className={styles.mainContainer}>
+        <div className={styles.logo}><h1>Bookstore</h1></div>
+        <ul>
+          {createLinks(links)}
+        </ul>
+      </div>
     </nav>
   );
 };

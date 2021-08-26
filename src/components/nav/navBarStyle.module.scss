@@ -1,0 +1,32 @@
+@use '../../styles/utils.scss' as *;
+
+.navBar {
+  background-color: white;
+  box-shadow: rgba(128, 128, 128, 0.1) 1px 1px 10px;
+  height: 100px;
+  padding: 0 6rem;
+
+  .logo {
+    font-family: $second-font;
+    color: #0290ff;
+    font-size: 1.875rem;
+    font-weight: bold;
+  }
+
+  .mainContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4rem;
+    height: 100%;
+
+    ul {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 4rem;
+      height: 100%;
+    }
+  }
+}
