@@ -5,7 +5,67 @@ import { motion } from 'framer-motion';
 import { React, useState } from 'react';
 import { deleteBook } from '../../redux/books/bookSlice';
 import ProgressCircle from '../progressCircle/ProgressCircle';
+import Chapter from '../chapter/Chapter';
 import styles from './bookStyle.module.scss';
+
+const containerA = {
+  initial: {},
+  animate: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.5,
+    },
+  },
+  exit: {
+    scale: 0,
+    opacity: 0,
+  },
+};
+
+const containerB = {
+  initial: {},
+  animate: {
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.8,
+    },
+  },
+};
+
+const childVariantA = {
+  initial: {
+    x: 50,
+    opacity: 0,
+  },
+  animate: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      damping: 10,
+      mass: 0.75,
+      stiffness: 100,
+    },
+  },
+};
+
+const childVariantB = {
+  initial: {
+    scale: 0,
+    opacity: 0,
+  },
+  animate: {
+    scale: 1,
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      damping: 10,
+      mass: 0.75,
+      stiffness: 200,
+    },
+  },
+};
 
 const Book = (props) => {
   const dispatch = useDispatch();
@@ -24,8 +84,17 @@ const Book = (props) => {
   return (
     <motion.li variants={variants}>
       <input onChange={changeHandler} type="text" name="value" placeholder="test percent" />
-      <motion.div className={styles.mainContainer}>
-        <div className={styles.dataContainer}>
+      <motion.div
+        className={styles.mainContainer}
+        variants={containerA}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
+        <motion.div
+          variants={childVariantA}
+          className={styles.dataContainer}
+        >
           <p className={styles.category}>
             {category}
           </p>
@@ -35,34 +104,49 @@ const Book = (props) => {
           <p className={styles.author}>
             author
           </p>
-          <div className={styles.optionsContainer}>
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className={styles.btn}
-              type="button"
+          <motion.div
+            variants={containerB}
+            className={styles.optionsContainer}
+          >
+            <motion.div
+              variants={childVariantB}
             >
-              Comments
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className={styles.btn}
-              onClick={handleRemove}
-              type="motion.button"
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className={styles.btn}
+                type="button"
+              >
+                Comments
+              </motion.button>
+            </motion.div>
+            <motion.div
+              variants={childVariantB}
             >
-              Remove
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className={styles.btn}
-              type="button"
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className={styles.btn}
+                onClick={handleRemove}
+                type="motion.button"
+              >
+                Remove
+              </motion.button>
+            </motion.div>
+            <motion.div
+              variants={childVariantB}
             >
-              Edit
-            </motion.button>
-          </div>
-        </div>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className={styles.btn}
+                type="button"
+              >
+                Edit
+              </motion.button>
+            </motion.div>
+          </motion.div>
+        </motion.div>
         <div className={styles.progressContainer}>
           <div className={styles.circlePercent}>
             <ProgressCircle
@@ -70,18 +154,7 @@ const Book = (props) => {
             />
           </div>
         </div>
-        <div className={styles.chapterContainer}>
-          <p className={styles.currentChapter}>CURRENT CHAPTER</p>
-          <p className={styles.chapterName}>A chapter</p>
-          <motion.button
-            whileHover={{ scale: 1.5 }}
-            whileTap={{ scale: 0.9 }}
-            className={styles.btn2}
-            type="button"
-          >
-            UPDATE PROGRESS
-          </motion.button>
-        </div>
+        <Chapter />
       </motion.div>
     </motion.li>
   );
