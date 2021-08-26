@@ -1,4 +1,4 @@
-@use '../../styles/utils.scss' as *;
+@use '../../styles/utils.scss'as *;
 
 .mainContainer {
   background-color: white;
@@ -16,7 +16,7 @@
     .title {
       margin: 0;
       font-family: $main-font;
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       font-weight: bold;
       color: black;
     }
@@ -24,7 +24,7 @@
     .author {
       margin: 0;
       font-family: $main-font;
-      font-size: 0.875rem;
+      font-size: 1rem;
       font-weight: 300;
       color: #4386bf;
     }
@@ -33,7 +33,7 @@
       margin: 0.5rem 0;
       font-family: $second-font;
       opacity: 0.5;
-      font-size: 0.875rem;
+      font-size: 1rem;
       font-weight: bold;
     }
 
@@ -48,6 +48,11 @@
         font-family: $main-font;
         font-weight: 300;
         font-size: 0.8rem;
+        font-size: 0.875rem;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
         background-color: transparent;
         border: none;
         padding: 0;

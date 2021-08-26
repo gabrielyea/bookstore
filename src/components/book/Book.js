@@ -86,6 +86,7 @@ const Book = (props) => {
   return (
     <AnimatePresence>
       <motion.li
+        className={styles.list}
         variants={variants}
       >
         <input onChange={changeHandler} type="text" name="value" placeholder="test percent" />
