@@ -30,7 +30,7 @@ const childVariantA = {
 };
 
 const ProgressCircle = (props) => {
-  const { percent } = props;
+  // const { percent } = props;
   const [endPoint, setEnd] = useState(0);
 
   const getCoordinatesForPercent = (percent) => {
@@ -38,6 +38,13 @@ const ProgressCircle = (props) => {
     const y = Math.sin(2 * Math.PI * percent);
     return [x, y];
   };
+
+  const { percent } = props;
+  const sW = 4;
+  const radius = 40;
+  const normalizedRadius = radius - (sW * 2);
+  const circumference = normalizedRadius * 2 * Math.PI;
+  const strokeDashoffset = circumference - percent * circumference;
 
   const start = 0;
 
@@ -47,9 +54,9 @@ const ProgressCircle = (props) => {
   const largeArcFlag = endPoint > 0.5 ? 1 : 0;
 
   const pathData = [
-    `M ${startX} ${startY}`, // Move
-    `A 1 1 0 ${largeArcFlag} 1 ${endX} ${endY}`, // Arc
-    'L 0 0', // Line
+    `M ${startX} ${startY}`,
+    `A 1 1 0 ${largeArcFlag} 1 ${endX} ${endY}`,
+    'L 0 0',
   ].join(' ');
 
   const style = {
@@ -74,8 +81,34 @@ const ProgressCircle = (props) => {
           className={styles.circlePercent}
           viewBox="-1 -1 2 2"
         >
-          <path
+          {/* <path
             d={pathData}
+          /> */}
+        </motion.svg>
+        <motion.svg
+          height={radius * 2}
+          width={radius * 2}
+        >
+          <motion.circle
+            className={styles.percentCircle}
+            stroke="grey"
+            fill="transparent"
+            strokeWidth={sW}
+            style={{ strokeDashoffset }}
+            r={normalizedRadius}
+            cx={radius}
+            cy={radius}
+          />
+          <motion.circle
+            className={styles.percentCircle}
+            stroke="blue"
+            fill="transparent"
+            strokeWidth={sW}
+            strokeDasharray={`${circumference} ${circumference}`}
+            style={{ strokeDashoffset }}
+            r={normalizedRadius}
+            cx={radius}
+            cy={radius}
           />
         </motion.svg>
         <motion.div

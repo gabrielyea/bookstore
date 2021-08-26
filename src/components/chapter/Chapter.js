@@ -47,6 +47,7 @@ const childVariantB = {
     },
   },
 };
+
 const Chapter = () => (
   <motion.div
     className={styles.chapterContainer}
