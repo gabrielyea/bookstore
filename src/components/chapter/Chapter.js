@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 import { motion } from 'framer-motion';
 import { React } from 'react';
 import styles from './chapterStyle.module.scss';
+import UpdateProgress from '../updateProgress/UpdateProgress';
 
 const containerA = {
   initial: {},
@@ -48,36 +50,34 @@ const childVariantB = {
   },
 };
 
-const Chapter = () => (
-  <motion.div
-    className={styles.chapterContainer}
-    variants={containerA}
-    initial="initial"
-    animate="animate"
-  >
-    <motion.p
-      className={styles.currentChapter}
-      variants={childVariantA}
+const Chapter = (props) => {
+  const { addProgress } = props;
+  return (
+    <motion.div
+      className={styles.chapterContainer}
+      variants={containerA}
+      initial="initial"
+      animate="animate"
     >
-      CURRENT CHAPTER
-    </motion.p>
-    <motion.p
-      className={styles.chapterName}
-      variants={childVariantA}
-    >
-      A chapter
-    </motion.p>
-    <motion.div variants={childVariantB}>
-      <motion.button
-        whileHover={{ scale: 1.5 }}
-        whileTap={{ scale: 0.9 }}
-        className={styles.btn}
-        type="button"
+      <motion.p
+        className={styles.currentChapter}
+        variants={childVariantA}
       >
-        UPDATE PROGRESS
-      </motion.button>
+        CURRENT CHAPTER
+      </motion.p>
+      <motion.p
+        className={styles.chapterName}
+        variants={childVariantA}
+      >
+        A chapter
+      </motion.p>
+      <motion.div variants={childVariantB}>
+        <UpdateProgress
+          addProgress={addProgress}
+        />
+      </motion.div>
     </motion.div>
-  </motion.div>
-);
+  );
+};
 
 export default Chapter;

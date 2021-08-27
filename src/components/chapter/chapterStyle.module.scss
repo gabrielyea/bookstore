@@ -16,23 +16,4 @@
     opacity: 1;
     font-size: 1rem;
   }
-
-  .btn {
-    font-family: $main-font;
-    color: white;
-    width: 11.5rem;
-    height: 2.063rem;
-    background-color: #0290ff;
-    border-radius: 3px;
-    border: none;
-    margin-top: 2em;
-
-    &:hover {
-      background-color: #0064b1;
-    }
-
-    &:active {
-      background-color: #cf9903;
-    }
-  }
 }
