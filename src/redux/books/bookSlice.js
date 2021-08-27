@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { access } from '../../api/api-access';
@@ -9,13 +8,17 @@ export const fetchAllBooks = createAsyncThunk('books/fetchAllBooks', async () =>
   const response = await access.getApi(routes.MAIN);
   const books = Object.entries(response).map((book) => ({
     item_id: book[0],
-    title: book[1][0].title,
+    title: book[1][0].title.split('/')[0],
+    author: book[1][0].title.split('/')[1],
     category: book[1][0].category,
   }));
   return books;
 });
 
-export const createBook = createAsyncThunk('books/createBook', async ({ item_id, category, title }) => {
+export const createBook = createAsyncThunk('books/createBook', async ({
+  item_id, author, category, title,
+}) => {
+  title = title.concat(`/${author}`);
   await access.postApi(routes.MAIN, { item_id, category, title });
 });
 
