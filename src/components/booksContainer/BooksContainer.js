@@ -42,14 +42,20 @@ const childVariant = {
 
 const BooksContainer = () => {
   const selectorBooks = useSelector((state) => state.books.entities);
+  const selector = useSelector((state) => state.books);
   const dispatch = useDispatch();
   const mainContainer = useRef(null);
 
   useEffect(() => {
+    console.log(selectorBooks);
+    console.log(selector);
     dispatch(fetchAllBooks());
+
     mainContainer.current.addEventListener('DOMNodeInserted', (event) => {
-      const { currentTarget: target } = event;
-      target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+      if (event.target.nodeName === 'LI') {
+        const { currentTarget: target } = event;
+        target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+      }
     });
   }, []);
 
@@ -59,6 +65,7 @@ const BooksContainer = () => {
       id={book.item_id}
       category={book.category}
       title={book.title}
+      author={book.author}
       variants={childVariant}
     />
   ));
