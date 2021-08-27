@@ -42,13 +42,10 @@ const childVariant = {
 
 const BooksContainer = () => {
   const selectorBooks = useSelector((state) => state.books.entities);
-  const selector = useSelector((state) => state.books);
   const dispatch = useDispatch();
   const mainContainer = useRef(null);
 
   useEffect(() => {
-    console.log(selectorBooks);
-    console.log(selector);
     dispatch(fetchAllBooks());
 
     mainContainer.current.addEventListener('DOMNodeInserted', (event) => {
