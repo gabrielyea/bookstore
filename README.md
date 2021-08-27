@@ -11,8 +11,8 @@ You can see my page live here:
 - [Check it out!](https://gabrielyea.github.io/bookstore/)
 
 ## Screenshots
-You can see my page live here: 
-![screenshot](https://gabrielyea.github.io/bookstore/)
+
+![screenshot](misc/screenshot.png)
 
 
 ## Built With 🔨
