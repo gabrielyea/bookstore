@@ -71,26 +71,29 @@ const Book = (props) => {
   const [percent, setPercent] = useState(0);
   const [remove, toggleRemove] = useCycle(true, false);
   const {
-    id, title, category, variants,
+    id, title, category, variants, author,
   } = props;
   const handleRemove = () => {
     toggleRemove();
     dispatch(deleteBook({ id }));
   };
 
-  const changeHandler = (event) => {
-    setPercent(event.target.value / 100);
+  const addProgress = (mod) => {
+    const temp = (percent * 100) + (10 * mod);
+    if (temp >= 0 && temp <= 100) {
+      setPercent((temp / 100));
+    }
   };
 
   return (
     <AnimatePresence initial="false">
       <motion.li
+        key="book"
         positionTransition
         className={styles.list}
         variants={variants}
         exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
       >
-        <input onChange={changeHandler} type="text" name="value" placeholder="test percent" />
         <motion.div
           className={styles.mainContainer}
           variants={containerA}
@@ -108,7 +111,7 @@ const Book = (props) => {
               {title}
             </p>
             <p className={styles.author}>
-              author
+              {author}
             </p>
             <motion.div
               variants={containerB}
@@ -156,7 +159,9 @@ const Book = (props) => {
           <ProgressCircle
             percent={percent}
           />
-          <Chapter />
+          <Chapter
+            addProgress={addProgress}
+          />
         </motion.div>
       </motion.li>
     </AnimatePresence>
