@@ -1,31 +1,29 @@
 /* eslint-disable react/prop-types */
+import { motion } from 'framer-motion';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
-const colors = ['#FF008C', '#D309E1', '#9C1AFF', '#7700FF', '#4400FF'];
+import styles from './menuItemStyle.module.scss';
 
 const MenuItem = ({
   index, to, text,
-}) => {
-  const style = { border: `2px solid ${colors[index]}` };
-  return (
-    <li
-      key={index}
+}) => (
+  <li
+    className={styles.item}
+    key={index}
+  >
+    <NavLink
+      to={to}
+      exact
     >
-      <NavLink
-        to={to}
-        exact
+      <motion.button
+        type="button"
+        className={styles.btn}
+        whileHover={styles.hover}
       >
-        <button
-          type="button"
-          className="btn"
-          style={style}
-        >
-          {text}
-        </button>
-      </NavLink>
-    </li>
-  );
-};
+        {text}
+      </motion.button>
+    </NavLink>
+  </li>
+);
 
 export default MenuItem;

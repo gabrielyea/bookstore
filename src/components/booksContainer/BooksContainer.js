@@ -1,42 +1,84 @@
-/* eslint-disable arrow-body-style */
-/* eslint-disable no-unused-vars */
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { unwrapResult } from '@reduxjs/toolkit';
-import { getBooksFromApi } from '../../redux/books/books';
+import { motion } from 'framer-motion';
 import { fetchAllBooks } from '../../redux/books/bookSlice';
+import styles from './bookContainerStyle.module.scss';
 import Book from '../book/Book';
 
+const container = {
+  initial: {
+    transition: {
+      staggerChildren: 0.5,
+      delayChildren: 1,
+    },
+  },
+  animate: {
+    transition: {
+      staggerChildren: 0.5,
+      delayChildren: 1,
+    },
+  },
+  exit: {
+    scale: 0,
+  },
+};
+
+const childVariant = {
+  initial: {
+    y: 20,
+    opacity: 0,
+  },
+  animate: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      damping: 10,
+      mass: 0.75,
+      stiffness: 100,
+    },
+  },
+};
+
 const BooksContainer = () => {
-  const books = useSelector((state) => state.books);
+  const selectorBooks = useSelector((state) => state.books.entities);
   const dispatch = useDispatch();
+  const mainContainer = useRef(null);
 
   useEffect(() => {
     dispatch(fetchAllBooks());
-    // const getStatus = async () => {
-    //   const resultAction = await dispatch(fetchAllBooks());
-    //   const originalPromiseResult = unwrapResult(resultAction);
-    // };
-    // getStatus();
+
+    mainContainer.current.addEventListener('DOMNodeInserted', (event) => {
+      if (event.target.nodeName === 'LI') {
+        const { currentTarget: target } = event;
+        target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+      }
+    });
   }, []);
 
-  const createBooks = (booksCollection) => booksCollection.map((book) => {
-    return (
-      <Book
-        key={book.item_id}
-        id={book.item_id}
-        category={book.category}
-        title={book.title}
-      />
-    );
-  });
+  const createBooks = (list) => list.map((book) => (
+    <Book
+      key={book.item_id}
+      id={book.item_id}
+      category={book.category}
+      title={book.title}
+      author={book.author}
+      variants={childVariant}
+    />
+  ));
 
   return (
-    <section>
-      <ul>
-        {createBooks(books.entities)}
-      </ul>
-    </section>
+    <motion.section
+      className={styles.mainContainer}
+      ref={mainContainer}
+    >
+      {selectorBooks
+      && (
+      <motion.ul variants={container} initial="initial" animate="animate" className={styles.listContainer}>
+        {createBooks(selectorBooks)}
+      </motion.ul>
+      )}
+    </motion.section>
   );
 };
 

@@ -15,10 +15,12 @@
 
 import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 import bookReducer from './books/bookSlice';
 
 export default configureStore({
   reducer: {
     books: bookReducer,
   },
+  middleware: [thunk],
 });
