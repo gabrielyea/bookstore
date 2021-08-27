@@ -6,6 +6,21 @@
   height: 100px;
   padding: 0 6rem;
 
+  .btn {
+    width: 2.813rem;
+    height: 2.813rem;
+    border-radius: 50%;
+    border: solid 1px #e8e8e8;
+    background-color: #fff;
+    margin-left: auto;
+  }
+
+  .userIcon {
+    width: 1.063rem;
+    height: 1.063rem;
+    color: #0290ff;
+  }
+
   .logo {
     font-family: $second-font;
     color: #0290ff;

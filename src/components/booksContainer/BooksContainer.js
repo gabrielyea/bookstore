@@ -1,9 +1,6 @@
-/* eslint-disable arrow-body-style */
-/* eslint-disable no-unused-vars */
 import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
-import { unwrapResult } from '@reduxjs/toolkit';
 import { fetchAllBooks } from '../../redux/books/bookSlice';
 import styles from './bookContainerStyle.module.scss';
 import Book from '../book/Book';
@@ -56,17 +53,15 @@ const BooksContainer = () => {
     });
   }, []);
 
-  const createBooks = (list) => list.map((book) => {
-    return (
-      <Book
-        key={book.item_id}
-        id={book.item_id}
-        category={book.category}
-        title={book.title}
-        variants={childVariant}
-      />
-    );
-  });
+  const createBooks = (list) => list.map((book) => (
+    <Book
+      key={book.item_id}
+      id={book.item_id}
+      category={book.category}
+      title={book.title}
+      variants={childVariant}
+    />
+  ));
 
   return (
     <motion.section

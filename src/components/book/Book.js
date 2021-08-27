@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useDispatch } from 'react-redux';
 import { AnimatePresence, motion, useCycle } from 'framer-motion';
@@ -84,10 +83,12 @@ const Book = (props) => {
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence initial="false">
       <motion.li
+        positionTransition
         className={styles.list}
         variants={variants}
+        exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
       >
         <input onChange={changeHandler} type="text" name="value" placeholder="test percent" />
         <motion.div

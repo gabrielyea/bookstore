@@ -1,4 +1,6 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { FaUser } from 'react-icons/fa';
 import MenuItem from './menuItem/MenuItem';
 import styles from './navBarStyle.module.scss';
 
@@ -32,6 +34,19 @@ const NavBar = () => {
         <ul>
           {createLinks(links)}
         </ul>
+        <motion.button
+          whileHover={{
+            scale: 1.3,
+            rotate: 360,
+          }}
+          whileTap={{
+            scale: 0.9,
+          }}
+          className={styles.btn}
+          type="button"
+        >
+          <FaUser className={styles.userIcon} />
+        </motion.button>
       </div>
     </nav>
   );
