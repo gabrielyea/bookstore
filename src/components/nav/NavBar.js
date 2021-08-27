@@ -33,7 +33,7 @@ const NavBar = () => {
       <div className={styles.mainContainer}>
         <div className={styles.logo}>
           <h1>
-            <Logo />
+            <Logo message="Bookstore" />
           </h1>
         </div>
         <ul>
