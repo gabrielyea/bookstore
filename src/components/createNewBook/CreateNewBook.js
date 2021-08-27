@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { motion } from 'framer-motion';
 import { createBook } from '../../redux/books/bookSlice';
 import styles from './createNewBookStyle.module.scss';
 
@@ -36,12 +37,14 @@ const options = [
 const CreateNewBook = () => {
   const dispatch = useDispatch();
   const titleInput = useRef(null);
+  const authorInput = useRef(null);
   const categoryInput = useRef(null);
 
   const submitBookToStore = () => {
     const newBook = {
       item_id: uuidv4(),
       title: titleInput?.current?.value,
+      author: authorInput?.current?.value,
       category: options[categoryInput?.current?.value],
     };
     dispatch(createBook(newBook));
@@ -73,6 +76,7 @@ const CreateNewBook = () => {
       </h1>
       <form onSubmit={handleSubmit}>
         <input required className={styles.title} ref={titleInput} type="text" name="title" placeholder="Title" />
+        <input required className={styles.title} ref={authorInput} type="text" name="author" placeholder="Author" />
         <select
           name="category"
           id="category"
@@ -86,7 +90,15 @@ const CreateNewBook = () => {
           </option>
           {allCategories}
         </select>
-        <input className={styles.btn} label="Create" type="submit" name="create" value="ADD BOOK" />
+        <motion.input
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className={styles.btn}
+          label="Create"
+          type="submit"
+          name="create"
+          value="ADD BOOK"
+        />
       </form>
     </section>
   );
