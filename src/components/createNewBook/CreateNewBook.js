@@ -80,12 +80,13 @@ const CreateNewBook = () => {
           ref={categoryInput}
           required
         >
-          <option value="0" disabled>
+          <option value="" disabled selected>Category</option>
+          <option value="0">
             Category
           </option>
           {allCategories}
         </select>
-        <input className={styles.btn} label="Create" type="submit" name="create" value="Create" />
+        <input className={styles.btn} label="Create" type="submit" name="create" value="ADD BOOK" />
       </form>
     </section>
   );

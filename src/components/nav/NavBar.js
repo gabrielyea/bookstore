@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FaUser } from 'react-icons/fa';
 import MenuItem from './menuItem/MenuItem';
 import styles from './navBarStyle.module.scss';
+import Logo from '../logo/Logo';
 
 const NavBar = () => {
   const links = [
@@ -30,7 +31,11 @@ const NavBar = () => {
   return (
     <nav className={styles.navBar}>
       <div className={styles.mainContainer}>
-        <div className={styles.logo}><h1>Bookstore</h1></div>
+        <div className={styles.logo}>
+          <h1>
+            <Logo />
+          </h1>
+        </div>
         <ul>
           {createLinks(links)}
         </ul>
